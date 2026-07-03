@@ -16,7 +16,7 @@ export const GenderPage = () => {
     <>
       <CustomJumbotron title={`${genderLabel} products`}/>
       <ProductsGrid products={data.products || []}/>
-      <CustomPagination totalPages={7}/>
+      <CustomPagination totalPages={data.pages || 1}/>
     </>
   )
 }
