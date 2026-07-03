@@ -5,10 +5,12 @@ import {type KeyboardEvent, useRef} from "react";
 import {Link, useParams, useSearchParams} from "react-router";
 import {cn} from "@/lib/utils.ts";
 import {CustomLogo} from "@/components/custom/CustomLogo.tsx";
+import {useAuthStore} from "@/auth/store/auth.store.ts";
 
 export const CustomHeader = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const {user, logout} = useAuthStore();
   const inputRef = useRef<HTMLInputElement>(null);
   const query = searchParams.get('query') || '';
   const {gender} = useParams();
@@ -80,11 +82,18 @@ export const CustomHeader = () => {
             <Search className="h-5 w-5"/>
           </Button>
 
-          <Link to={"/auth/login"}>
-            <Button variant="default" size="sm" className="ml-2">
-              Login
+          {!user ? (
+
+            <Link to={"/auth/login"}>
+              <Button variant="default" size="sm" className="ml-2">
+                Login
+              </Button>
+            </Link>
+          ) : (
+            <Button variant="default" size="sm" className="ml-2" onClick={logout}>
+              Logout
             </Button>
-          </Link>
+          )}
 
           <Link to={"/admin"}>
             <Button variant="destructive" size="sm" className="ml-2">
