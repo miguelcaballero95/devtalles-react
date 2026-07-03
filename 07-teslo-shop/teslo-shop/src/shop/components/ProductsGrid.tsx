@@ -1,16 +1,16 @@
-import { Button } from "@/components/ui/button"
-import type { Product } from "@/mocks/products.mock"
-import { Filter, Grid, List } from "lucide-react"
-import { useState } from "react"
+import {Button} from "@/components/ui/button"
+import {Filter, Grid, List} from "lucide-react"
+import {useState} from "react"
 import ProductCard from "./ProductCard"
-import { FilterSidebar } from "./FilterSidebar"
-import { useSearchParams } from "react-router"
+import {FilterSidebar} from "./FilterSidebar"
+import {useSearchParams} from "react-router"
+import type {Product} from "@/interfaces/product.interface.ts";
 
 interface Props {
   products: Product[]
 }
 
-export const ProductsGrid = ({ products }: Props) => {
+export const ProductsGrid = ({products}: Props) => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [showFilters, setShowFilters] = useState(false);
@@ -37,7 +37,7 @@ export const ProductsGrid = ({ products }: Props) => {
               onClick={() => setShowFilters(!showFilters)}
               className="lg:hidden"
             >
-              <Filter className="h-4 w-4 mr-2" />
+              <Filter className="h-4 w-4 mr-2"/>
               Filtros
             </Button>
 
@@ -48,7 +48,7 @@ export const ProductsGrid = ({ products }: Props) => {
                 onClick={() => handleViewModeChange('grid')}
                 className="rounded-r-none"
               >
-                <Grid className="h-4 w-4" />
+                <Grid className="h-4 w-4"/>
               </Button>
               <Button
                 variant={viewMode === 'list' ? 'default' : 'ghost'}
@@ -56,7 +56,7 @@ export const ProductsGrid = ({ products }: Props) => {
                 onClick={() => handleViewModeChange('list')}
                 className="rounded-l-none"
               >
-                <List className="h-4 w-4" />
+                <List className="h-4 w-4"/>
               </Button>
             </div>
           </div>
@@ -65,7 +65,7 @@ export const ProductsGrid = ({ products }: Props) => {
         <div className="flex gap-8">
           {/* Filters Sidebar - Desktop */}
           <div className="hidden lg:block">
-            <FilterSidebar />
+            <FilterSidebar/>
           </div>
 
           {/* Mobile Filters */}
@@ -81,7 +81,7 @@ export const ProductsGrid = ({ products }: Props) => {
                   Cerrar
                 </Button>
               </div>
-              <FilterSidebar />
+              <FilterSidebar/>
             </div>
           )}
 
@@ -96,10 +96,10 @@ export const ProductsGrid = ({ products }: Props) => {
                 <ProductCard
                   key={product.id}
                   id={product.id}
-                  name={product.name}
+                  name={product.title}
                   price={product.price}
-                  image={product.image}
-                  category={product.category}
+                  image={product.images[0]}
+                  sizes={product.sizes}
                 />
               ))}
             </div>

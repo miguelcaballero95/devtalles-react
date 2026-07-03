@@ -1,15 +1,16 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import {Button} from "@/components/ui/button";
+import {Card, CardContent} from "@/components/ui/card";
+import type {Size} from "@/interfaces/product.interface.ts";
 
 interface ProductCardProps {
   id: string;
   name: string;
   price: number;
   image: string;
-  category: string;
+  sizes: Size[];
 }
 
-const ProductCard = ({ name, price, image, category }: ProductCardProps) => {
+const ProductCard = ({name, price, image, sizes}: ProductCardProps) => {
   return (
     <Card className="group border-0 shadow-none product-card-hover cursor-pointer">
       <CardContent className="p-0">
@@ -19,13 +20,13 @@ const ProductCard = ({ name, price, image, category }: ProductCardProps) => {
             alt={name}
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
-          <div className="image-overlay" />
+          <div className="image-overlay"/>
         </div>
 
         <div className="pt-6 px-4 pb-4 space-y-3">
           <div className="space-y-1">
             <h3 className="font-medium text-sm tracking-tight">{name}</h3>
-            <p className="text-xs text-muted-foreground uppercase">{category}</p>
+            <p className="text-xs text-muted-foreground uppercase">{sizes.join(", ")}</p>
           </div>
 
           <div className="flex items-center justify-between">

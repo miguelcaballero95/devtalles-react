@@ -1,14 +1,19 @@
-import { CustomPagination } from "@/components/custom/CustomPagination"
-import { products } from "@/mocks/products.mock"
-import { CustomJumbotron } from "@/shop/components/CustomJumbotron"
-import { ProductsGrid } from "@/shop/components/ProductsGrid"
+import {CustomPagination} from "@/components/custom/CustomPagination"
+import {CustomJumbotron} from "@/shop/components/CustomJumbotron"
+import {ProductsGrid} from "@/shop/components/ProductsGrid"
+import {useProducts} from "@/shop/hooks/useProducts.tsx";
 
 export const HomePage = () => {
+
+  const {data} = useProducts();
+
+  if (!data) return null;
+
   return (
     <>
-      <CustomJumbotron title="All products" />
-      <ProductsGrid products={products} />
-      <CustomPagination totalPages={7} />
+      <CustomJumbotron title="All products"/>
+      <ProductsGrid products={data.products || []}/>
+      <CustomPagination totalPages={7}/>
     </>
   )
 }
