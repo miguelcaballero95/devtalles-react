@@ -9,17 +9,22 @@ type AuthState = {
   user: User | null;
   token: string | null;
   authStatus: AuthStatus;
-
+  isAdmin: () => boolean;
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
   checkAuthStatus: () => Promise<boolean>;
 }
 
-export const useAuthStore = create<AuthState>((setState) => ({
+export const useAuthStore = create<AuthState>((setState, getState) => ({
   user: null,
   token: null,
   authStatus: 'loading',
-
+  isAdmin: () => {
+    const {user} = getState();
+    if (!user) return false;
+    const roles = user.roles;
+    return roles.includes('admin');
+  },
   login: async (email: string, password: string) => {
     try {
       const data = await loginAction(email, password);
